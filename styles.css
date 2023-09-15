@@ -1,1 +1,75 @@
+body {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  background-color: #474056;
+  box-sizing: border-box;
+}
 
+.container {
+  margin: 20px auto;
+  /* width: 100%; */
+}
+
+.header {
+  text-align: center;
+  background-color: #d8dcaf;
+  border-radius: 10px;
+  padding: 1px 5px;
+}
+
+.search {
+  text-align: center;
+  background-color: rgb(199, 199, 199);
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.watchlist {
+  text-align: center;
+  background-color: rgb(199, 199, 199);
+  height: 300px;
+  border-radius: 10px;
+  padding-top: 5px;
+}
+
+input {
+  width: 150px;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.frequency {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.block {
+  background-color: #ffcbcb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  padding: 10px;
+  width: 100px;
+  margin: 5px;
+  border-radius: 10px;
+}
+
+button {
+  border-radius: 100px;
+  font-size: 1.1rem;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: auto;
+}
+
+#stocks {
+
+}

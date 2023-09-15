@@ -1,1 +1,32 @@
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stock Market Dashboard</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script defer src="./App.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="container header">
+        <h1>Stock Market Dashboard</h1>
+      </div>
+      <div class="container search">
+        <input type="text" id="search" placeholder="Search for symbol..." />
+        <button id="btn" type="submit">&#x1F50D;</button>
+        <div class="frequency">
+          <div id="intra" class="block"><b>INTRADAY</b></div>
+          <div id="daily" class="block"><b>DAILY</b></div>
+          <div id="weekly" class="block"><b>WEEKLY</b></div>
+          <div id="monthly" class="block"><b>MONTHLY</b></div>
+        </div>
+      </div>
+      <div class="container watchlist">
+        <h1>Your Watchlist</h1>
+        <ul id="stocks">
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

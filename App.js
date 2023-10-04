@@ -18,10 +18,11 @@ submit.addEventListener("click", async () => {
   let response;
   let query = input.value;
   if (interval == "") {
+    alert("Select frequency please...");
     return;
   } else if (interval == "INTRADAY") {
     response = await fetch(
-      `https://www.alphavantage.co/query?function=TIME_SERIES_${interval}&symbol=${query}&interval=15min&outputsize=compact&apikey=${API_KEY}`
+      `https://www.alphavantage.co/query?function=TIME_SERIES_${interval}&symbol=${query}&interval=5min&outputsize=compact&apikey=${API_KEY}`
     );
   } else {
     response = await fetch(
@@ -33,23 +34,33 @@ submit.addEventListener("click", async () => {
 
   addToWatchlist(query, data, interval);
 
-  console.log(data);
-  const res = data["Meta Data"]["2. Symbol"];
-  const daily = data["Time Series (Daily)"];
+  input.value = "";
 
-  for (let key in daily) {
-    console.log(key, " ", daily[key]);
-    const today = daily[key];
-
-    const open = today["1. open"];
-    const high = today["2. high"];
-    const low = today["3. low"];
-    const close = today["4. close"];
-    const volume = today["5. volume"];
-  }
+  // for (let key in daily) {
+  // console.log(key, " ", daily[key]);
+  // const today = daily[key];
+  // const open = today["1. open"];
+  // const high = today["2. high"];
+  // const low = today["3. low"];
+  // const volume = today["5. volume"];
+  // }
 });
 
-function addToWatchlist(query, response, interval) {
+function addToWatchlist(query, data, interval) {
+  if (interval == "DAILY") {
+    res = data["Time Series (Daily)"];
+  } else if (interval == "WEEKLY") {
+    res = data["Weekly Time Series"];
+  } else if (interval == "MONTHLY") {
+    res = data["Monthly Time Series"];
+  } else {
+    res = data["Time Series (5min)"];
+  }
+
+  const lastRefresh = data["Meta Data"]["3. Last Refreshed"];
+  const date = res[lastRefresh];
+  const close = date["4. close"];
+
   const element = document.createElement("li");
   const intervalValue = document.createElement("div");
   const currentValue = document.createElement("div");
@@ -57,11 +68,16 @@ function addToWatchlist(query, response, interval) {
   const deleteBtn = document.createElement("button");
 
   element.classList.add("list-item");
-  element.style.backgroundColor = "lightblue"
+  element.style.backgroundColor = "lightblue";
   name.innerText = query;
-  currentValue.innerText = 123.45;
+
+  currentValue.innerText = close;
   intervalValue.innerText = interval;
   deleteBtn.innerText = "❌";
+
+  deleteBtn.addEventListener("click", () => {
+    element.innerHTML = "";
+  });
 
   currentValue.style.backgroundColor = "green";
   currentValue.classList.add("block");
@@ -74,6 +90,12 @@ function addToWatchlist(query, response, interval) {
   element.appendChild(intervalValue);
   element.appendChild(deleteBtn);
   stocks.appendChild(element);
+
+  // element.addEventListener("click", () => {
+  //   const ele = document.createElement("div");
+  //   ele.innerText = "nested data";
+  //   element.nextSibling = ele;
+  // });
 }
 
 intra.addEventListener("click", () => {

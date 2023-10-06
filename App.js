@@ -38,11 +38,6 @@ submit.addEventListener("click", async () => {
 
   // for (let key in daily) {
   // console.log(key, " ", daily[key]);
-  // const today = daily[key];
-  // const open = today["1. open"];
-  // const high = today["2. high"];
-  // const low = today["3. low"];
-  // const volume = today["5. volume"];
   // }
 });
 
@@ -70,6 +65,8 @@ function addToWatchlist(query, data, interval) {
   element.classList.add("list-item");
   element.style.backgroundColor = "lightblue";
   name.innerText = query;
+  name.style.backgroundColor = "orange";
+  name.classList.add("block");
 
   currentValue.innerText = close;
   intervalValue.innerText = interval;
@@ -80,9 +77,11 @@ function addToWatchlist(query, data, interval) {
   });
 
   currentValue.style.backgroundColor = "green";
+  currentValue.style.color = "white";
   currentValue.classList.add("block");
 
   intervalValue.style.backgroundColor = "gray";
+  intervalValue.style.color = "white";
   intervalValue.classList.add("block");
 
   element.appendChild(name);
@@ -91,11 +90,65 @@ function addToWatchlist(query, data, interval) {
   element.appendChild(deleteBtn);
   stocks.appendChild(element);
 
-  // element.addEventListener("click", () => {
-  //   const ele = document.createElement("div");
-  //   ele.innerText = "nested data";
-  //   element.nextSibling = ele;
-  // });
+  element.addEventListener("click", () => {
+    const modal = document.getElementById("details");
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const tbody = document.createElement("tbody");
+    const headings = document.createElement("tr");
+
+    const date = document.createElement("th");
+    const open = document.createElement("th");
+    const high = document.createElement("th");
+    const low = document.createElement("th");
+    const close = document.createElement("th");
+    const volume = document.createElement("th");
+    date.innerText = "Date";
+    open.innerText = "Open";
+    high.innerText = "High";
+    low.innerText = "Low";
+    close.innerText = "Close";
+    volume.innerText = "Volume";
+    headings.appendChild(date);
+    headings.appendChild(open);
+    headings.appendChild(high);
+    headings.appendChild(low);
+    headings.appendChild(close);
+    headings.appendChild(date);
+    thead.appendChild(headings);
+    table.appendChild(thead);
+
+    let latestFive = 0;
+
+    for (let key in res) {
+      if (latestFive == 5) break;
+      const trow = document.createElement("tr");
+      const tdata0 = document.createElement("td");
+      const tdata1 = document.createElement("td");
+      const tdata2 = document.createElement("td");
+      const tdata3 = document.createElement("td");
+      const tdata4 = document.createElement("td");
+      const tdata5 = document.createElement("td");
+      tdata0.innerText = key;
+      tdata1.innerText = res[key]["1. open"];
+      tdata2.innerText = res[key]["2. high"];
+      tdata3.innerText = res[key]["3. low"];
+      tdata4.innerText = res[key]["4. close"];
+      tdata5.innerText = res[key]["5. volume"];
+      trow.appendChild(tdata0);
+      trow.appendChild(tdata1);
+      trow.appendChild(tdata2);
+      trow.appendChild(tdata3);
+      trow.appendChild(tdata4);
+      trow.appendChild(tdata5);
+      tbody.appendChild(trow);
+      latestFive++;
+    }
+
+    table.appendChild(tbody);
+
+    modal.innerText = table;
+  });
 }
 
 intra.addEventListener("click", () => {

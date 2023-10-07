@@ -92,6 +92,8 @@ function addToWatchlist(query, data, interval) {
 
   element.addEventListener("click", () => {
     const modal = document.getElementById("details");
+    const modalTitle = document.getElementById("title");
+    modalTitle.innerText = name.innerText;
     const table = document.createElement("table");
     const thead = document.createElement("thead");
     const tbody = document.createElement("tbody");
@@ -114,7 +116,7 @@ function addToWatchlist(query, data, interval) {
     headings.appendChild(high);
     headings.appendChild(low);
     headings.appendChild(close);
-    headings.appendChild(date);
+    headings.appendChild(volume);
     thead.appendChild(headings);
     table.appendChild(thead);
 
@@ -146,8 +148,9 @@ function addToWatchlist(query, data, interval) {
     }
 
     table.appendChild(tbody);
-
-    modal.innerText = table;
+    modal.innerText = "";
+    table.className = "modal-table";
+    modal.appendChild(table);
   });
 }
 

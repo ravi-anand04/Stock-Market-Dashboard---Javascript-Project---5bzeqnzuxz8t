@@ -71,4 +71,14 @@ button {
 }
 
 #stocks {
+  /* display: flex;
+  justify-content: space-between; */
+  width: 80%;
+  margin: auto;
+  border-radius: 10px;
+}
+
+.modal-table {
+  text-align: center;
+  width: 500px;
 }

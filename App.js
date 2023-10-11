@@ -42,6 +42,11 @@ submit.addEventListener("click", async () => {
 });
 
 function addToWatchlist(query, data, interval) {
+  if (data["Error Message"]) {
+    alert("No company found! Try again");
+    return;
+  }
+
   if (interval == "DAILY") {
     res = data["Time Series (Daily)"];
   } else if (interval == "WEEKLY") {
@@ -72,8 +77,9 @@ function addToWatchlist(query, data, interval) {
   intervalValue.innerText = interval;
   deleteBtn.innerText = "❌";
 
-  deleteBtn.addEventListener("click", () => {
-    element.innerHTML = "";
+  deleteBtn.addEventListener("click", (event) => {
+    event.stopPropagation();
+    element.remove();
   });
 
   currentValue.style.backgroundColor = "green";
@@ -90,9 +96,38 @@ function addToWatchlist(query, data, interval) {
   element.appendChild(deleteBtn);
   stocks.appendChild(element);
 
-  element.addEventListener("click", () => {
+  element.addEventListener("click", async () => {
+    // Getting new modal data
+    const currentInterval = element.children[2].innerText;
+    const currentName = element.children[0].innerText;
+
+    if (interval == "INTRADAY") {
+      currentResponse = await fetch(
+        `https://www.alphavantage.co/query?function=TIME_SERIES_${currentInterval}&symbol=${currentName}&interval=5min&outputsize=compact&apikey=${API_KEY}`
+      );
+    } else {
+      currentResponse = await fetch(
+        `https://www.alphavantage.co/query?function=TIME_SERIES_${currentInterval}&symbol=${currentName}&outputsize=compact&apikey=${API_KEY}`
+      );
+    }
+
+    jsonData = await currentResponse.json();
+    if (interval == "DAILY") {
+      res = jsonData["Time Series (Daily)"];
+    } else if (interval == "WEEKLY") {
+      res = jsonData["Weekly Time Series"];
+    } else if (interval == "MONTHLY") {
+      res = jsonData["Monthly Time Series"];
+    } else {
+      res = jsonData["Time Series (5min)"];
+    }
+
     const modal = document.getElementById("details");
     const modalTitle = document.getElementById("title");
+
+    element.setAttribute("data-bs-toggle", "modal");
+    element.setAttribute("data-bs-target", "#exampleModal");
+
     modalTitle.innerText = name.innerText;
     const table = document.createElement("table");
     const thead = document.createElement("thead");

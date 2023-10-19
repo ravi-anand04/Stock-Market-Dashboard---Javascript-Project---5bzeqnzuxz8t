@@ -12,5 +12,7 @@ User-friendly and responsive design for seamless use on various devices.
 **Technologies Used**
 
 **Frontend**: Html, CSS, JS
+
 **APIs**: Alpha Vantage for stock market data
+
 **Deployment**: Netlify

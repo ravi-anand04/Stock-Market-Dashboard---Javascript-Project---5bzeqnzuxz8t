@@ -15,4 +15,4 @@ User-friendly and responsive design for seamless use on various devices.
 
 **APIs**: Alpha Vantage for stock market data
 
-**Deployment**: Netlify
+**Deployment**: [Netlify](https://alpha-vantage-stock.netlify.app/)https://alpha-vantage-stock.netlify.app/

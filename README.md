@@ -1,4 +1,4 @@
-**Description**
+****Description****
 
 The Stock Market App is a web application that provides real-time stock market data, including stock prices, charts, and company information. 
 It offers a user-friendly interface for tracking and managing your stock portfolio.
